@@ -1,8 +1,10 @@
 #include "TList.h"
+
+#include "Polynome.h"
 #include <iostream>
 using namespace std;
 void main() {
-	TList<int> l1;
+	/*TList<int> l1;
 	for (int i = 0; i < 5; i++) {
 		l1.PushBack(i);
 	}
@@ -14,5 +16,8 @@ void main() {
 	for (int i = 0; i < 5; i++) {
 		cout << l1.Pop() << endl;
 		cout << l2.Pop() << endl;
-	}
+	}*/
+	Polynome p1;
+	cin >> p1;
+	cout << p1;
 }

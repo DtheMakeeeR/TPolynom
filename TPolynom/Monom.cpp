@@ -2,17 +2,22 @@
 
 bool Monom::operator<(const Monom& m)
 {
-    int s1 = x * 100 + y * 10 + z, s2 = m.x * 100 + m.y * 10 + m.z;
-    return s1 < s2;
+    if (x != m.x) return x < m.x;
+    if (y != m.y) return y < m.y;
+    if (z != m.z) return z < m.z;
 }
 
 ostream& operator<<(ostream& out, const Monom& m)
 {
-    out << m.coeff << "x^" << m.x << "y^" << m.y << "z^" << m.z << endl;;
+    out << m.coeff;
+    if (m.x != 0) cout << "*x^" << m.x;
+    if (m.y != 0) cout << "*y^" << m.y;
+    if (m.z != 0) cout << "*z^" << m.z << endl;
     return out;
 }
 
-istream& operator>>(istream& in, Monom&)
+istream& operator>>(istream& in, Monom& m)
 {
+    in >> m.coeff >> m.x >> m.y >> m.z;
     return in;
 }
