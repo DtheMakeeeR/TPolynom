@@ -13,12 +13,14 @@ ostream& operator<<(ostream& out, const Polynome& p)
 istream& operator>>(istream& in, Polynome& p)
 {
     double tmpCoeff;
-    int power;
     cin >> tmpCoeff;
     while (tmpCoeff != 0) {
         Monom* tmpMonom = new Monom();
         tmpMonom->coeff = tmpCoeff;
-        cin >> tmpMonom->x >> tmpMonom->y >> tmpMonom->z;
+        try {
+            cin >> tmpMonom->x >> tmpMonom->y >> tmpMonom->z;
+        }
+        catch (exception e) { throw e.what(); }
         p.PushBack(*tmpMonom);
         cin >> tmpCoeff;
     } 

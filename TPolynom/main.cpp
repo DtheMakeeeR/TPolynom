@@ -20,4 +20,6 @@ void main() {
 	Polynome p1;
 	cin >> p1;
 	cout << p1;
+	Polynome p2(p1);
+	cout << endl << p2;
 }

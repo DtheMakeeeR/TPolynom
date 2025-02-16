@@ -12,7 +12,7 @@ ostream& operator<<(ostream& out, const Monom& m)
     out << m.coeff;
     if (m.x != 0) cout << "*x^" << m.x;
     if (m.y != 0) cout << "*y^" << m.y;
-    if (m.z != 0) cout << "*z^" << m.z << endl;
+    if (m.z != 0) cout << "*z^" << m.z;
     return out;
 }
 
