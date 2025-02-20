@@ -22,7 +22,7 @@ public:
 template<class T>
 typename ListIterator<T>::reference ListIterator<T>::operator*() const
 {
-	return *pCurr->value;
+	return (pCurr->value);
 }
 
 template<class T>
