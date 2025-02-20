@@ -1,4 +1,5 @@
 #pragma once
+#include "ListIterator.h"
 template <typename T>
 struct Node {
 	T value;
@@ -13,10 +14,12 @@ struct Node {
 template <class T>
 class TList {
 protected:
-	Node<T>* pFirst, *pLast;
+	Node<T>* pFirst, *pLast, *pCurr, *pPrev;
 	int sz;
 public:
-	TList() :pFirst(nullptr), pLast(nullptr), sz(0) {}
+	typedef ListIterator<T> iterator;
+
+	TList() :pFirst(nullptr), pLast(nullptr), pCurr(nullptr), pPrev(nullptr), sz(0) {}
 	TList(const TList& l);
 
 	TList<T>& operator=(const TList<T>& l);
@@ -24,6 +27,14 @@ public:
 	bool operator !=(const TList<T>& l) { return !(*this == l); };
 	~TList();
 
+	iterator Begin() { return iterator(pFirst); };
+	iterator End() { return iterator(pLast->pNext); };
+
+	void Reset();
+	bool IsEnd() { return pCurr == nullptr; }
+	void GoNext();
+	T GetCurr() { return pCurr->value; }
+	void SetCurr(T v) { pCurr->value = v; }
 	bool IsEmpty() { return sz == 0; };
 	void Clear();
 	void PushFront(T v);
@@ -86,6 +97,21 @@ template<class T>
 TList<T>::~TList()
 {
 	while (sz != 0) Pop();
+}
+
+template<class T>
+void TList<T>::Reset()
+{
+	pCurr = pFirst;
+	pPrev = nullptr;
+}
+
+template<class T>
+void TList<T>::GoNext()
+{
+	if (pCurr == nullptr) throw - 1;
+	pPrev = pCurr;
+	pCurr = pCurr->pNext;
 }
 
 template<class T>
