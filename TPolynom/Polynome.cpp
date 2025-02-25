@@ -37,6 +37,35 @@ Polynome::Polynome(Monome* p, int sz)
     }
 }
 
+Polynome Polynome::operator+(Polynome& p)
+{
+    Polynome res(*this);
+    Polynome::iterator pi = p.Begin();
+    for (; pi != p.End(); ++pi) {
+        res.AddMonome(*pi);
+    }
+    return res;
+}
+//равны - двигаем оба, если удалился то двигаем в п
+// > InsCurr двигаем п
+// < двигаем res
+Polynome Polynome::operator+(double coef)
+{
+    Polynome res(*this);
+    if (coef == 0.0) res.Clear();
+    else {
+        for (Reset(); !IsEnd(); GoNext()) {
+            pCurr->value.coeff *= coef;
+        }
+    }
+    return res;
+}
+
+Polynome Polynome::operator*(Polynome& p)
+{
+    return Polynome();
+}
+
 void Polynome::AddMonome(Monome m)
 {
     if (IsEmpty()) PushBack(m);

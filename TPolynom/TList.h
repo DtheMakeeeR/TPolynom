@@ -37,6 +37,8 @@ public:
 	void SetCurr(T v) { pCurr->value = v; }
 	bool IsEmpty() { return sz == 0; };
 	void Clear();
+	void InsCurr(T v);
+	void DelCurr();
 	void PushFront(T v);
 	void PushBack(T v);
 	void DelFront();
@@ -118,6 +120,42 @@ template<class T>
 void TList<T>::Clear()
 {
 	while (sz != 0) DelFront();
+}
+
+template<class T>
+void TList<T>::InsCurr(T v)
+{
+	if (pCurr == pFirst) {
+		PushFront(v);
+		pPrev = pFirst;
+		return;
+	}
+	if (pPrev == pLast) {
+		PushBack(v);
+		return;
+	}
+	Node<T>* tmp = new Node<T>(v);
+	tmp->pNext = pCurr;
+	pPrev->pNext = tmp;
+	pPrev = pPrev->pNext;
+	sz++;
+}
+
+template<class T>
+void TList<T>::DelCurr()
+{
+	if (pCurr == nullptr) throw - 1;
+	if (pCurr == pFirst) {
+		Pop();
+		pCurr = pFirst;
+		return;
+	}
+	Node<T>* tmp = pCurr;
+	pCurr = pCurr->pNext;
+	delete tmp;
+	pPrev->pNext = pCurr;
+	if (pCurr == nullptr) pLast = pPrev;
+	sz--;
 }
 
 template<class T>
