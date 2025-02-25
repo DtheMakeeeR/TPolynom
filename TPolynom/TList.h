@@ -72,7 +72,7 @@ TList<T>& TList<T>::operator=(const TList<T>& l)
 	}
 	else 
 	{
-		for (size_t i = 0; i < sz; i++) DelFront();
+		Clear();
 		Node<T>* tmp = l.pFirst;
 		while (tmp != nullptr) {
 			PushBack(tmp->value);

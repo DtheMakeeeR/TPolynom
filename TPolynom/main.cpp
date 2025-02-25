@@ -64,10 +64,10 @@ void main() {
 	cout << p5 << " p4 * monom1" << endl;
 	cout << "\n\n\n\n\n ****operator* polynom ****\n";
 	Monome m5[2] = { Monome(2, 2, 2), Monome(1, 1, 1, 1) };
-	Monome m6[1] = { Monome(3, 3, 3, 3) };
-	Polynome p6(m5, 2), p7(m6, 1);
-	Polynome res = p6 * p7;
+	Monome m6[2] = { Monome(3, 3, 3, 3), Monome(2)};
+	Polynome p6(m5, 2), p7(m6, 2);
 	cout << p6 << " p6" << endl;
 	cout << p7 << " p7" << endl;
+	Polynome res = p6 * p7;
 	cout << res << " p6 * p7" << endl;
 }

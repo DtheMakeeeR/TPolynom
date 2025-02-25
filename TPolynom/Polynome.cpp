@@ -6,7 +6,7 @@ ostream& operator<<(ostream& out, Polynome& p)
     out << p.GetCurr();
     p.GoNext();
     for (; !p.IsEnd(); p.GoNext()) {
-        out << (p.GetCurr().coeff >= 1 ? "+" : "") << p.GetCurr();
+        out << (p.GetCurr().coeff >= 1 ? " +" : " ") << p.GetCurr();
     }
     return out;
 }
@@ -78,6 +78,11 @@ Polynome Polynome::operator+(Polynome& p)
         }
         else if (pcur < rcur) {
             res.GoNext();
+        }
+    }
+    if (!p.IsEnd()) {
+        for (; !p.IsEnd(); p.GoNext()) {
+            res.PushBack(p.GetCurr());
         }
     }
     return res;
