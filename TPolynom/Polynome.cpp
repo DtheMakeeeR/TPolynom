@@ -6,7 +6,7 @@ ostream& operator<<(ostream& out, Polynome& p)
     out << p.GetCurr();
     p.GoNext();
     for (; !p.IsEnd(); p.GoNext()) {
-        out << (p.GetCurr().coeff > 1 ? "+" : "") << p.GetCurr();
+        out << (p.GetCurr().coeff >= 1 ? "+" : "") << p.GetCurr();
     }
     return out;
 }
@@ -40,6 +40,12 @@ Polynome::Polynome(Monome* p, int sz)
 bool Polynome::operator==(const Polynome& p) const {
     return TList<Monome>::operator==(p);
 }
+Polynome& Polynome::operator=(const Polynome& p) {
+    if (this == &p) return *this;
+    TList<Monome>::operator=(p); //нельзя просто return TList<Monome>::operator=(p)
+    return *this; 
+}
+
 //Polynome Polynome::operator+(Polynome& p)
 //{
 //    Polynome res(*this);
@@ -95,8 +101,10 @@ Polynome Polynome::operator*(Polynome& p)
 {
     Polynome res;
     if (p.sz == 0) return res;
-    for (Reset(); !IsEnd(); GoNext()) {
-        Polynome tmp;
+    for (p.Reset(); !(p.IsEnd()); (p.GoNext())) {
+        //res = res + (*this * p.GetCurr()); не работает!
+        Polynome tmp = (*this * p.GetCurr());
+        res = (res + tmp);
     }
     return res;
 }

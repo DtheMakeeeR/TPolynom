@@ -9,7 +9,7 @@ public:
 	Polynome(Monome* p, int sz);
 
 	bool operator==(const Polynome& p) const;
-
+	Polynome& operator=(const Polynome& p);
 	Polynome operator+(Polynome& p);
 	Polynome operator+(double coef);
 	Polynome operator*(Polynome& p);
