@@ -37,12 +37,42 @@ Polynome::Polynome(Monome* p, int sz)
     }
 }
 
+bool Polynome::operator==(const Polynome& p) const {
+    return TList<Monome>::operator==(p);
+}
+//Polynome Polynome::operator+(Polynome& p)
+//{
+//    Polynome res(*this);
+//    Polynome::iterator pi = p.Begin();
+//    for (; pi != p.End(); ++pi) {
+//        res.AddMonome(*pi);
+//    }
+//    return res;
+//}
 Polynome Polynome::operator+(Polynome& p)
 {
     Polynome res(*this);
-    Polynome::iterator pi = p.Begin();
-    for (; pi != p.End(); ++pi) {
-        res.AddMonome(*pi);
+    for (res.Reset(), p.Reset(); (!res.IsEnd()) && (!p.IsEnd());) {
+        Monome rcur = res.GetCurr(), pcur = p.GetCurr();
+        if (rcur == pcur) {
+            double c = rcur.coeff + pcur.coeff;
+            if (c == 0) {
+                res.DelCurr();
+                p.GoNext();
+            }
+            else {
+                res.GetCurr().coeff = c;
+                res.GoNext();
+                p.GoNext();
+            }
+        }
+        else if (rcur < pcur) {
+            res.InsCurr(pcur);
+            p.GoNext();
+        }
+        else if (pcur < rcur) {
+            res.GoNext();
+        }
     }
     return res;
 }
@@ -63,7 +93,27 @@ Polynome Polynome::operator+(double coef)
 
 Polynome Polynome::operator*(Polynome& p)
 {
-    return Polynome();
+    Polynome res;
+    if (p.sz == 0) return res;
+    for (Reset(); !IsEnd(); GoNext()) {
+        Polynome tmp;
+    }
+    return res;
+}
+
+Polynome Polynome::operator*(Monome m)
+{
+    Polynome res;
+    if (m.coeff == 0.0) return res;
+    for (Reset(); !IsEnd(); GoNext()) {
+        Monome tmp;
+        tmp.coeff = GetCurr().coeff * m.coeff;
+        tmp.x = m.x + GetCurr().x;
+        tmp.y = m.y + GetCurr().y;
+        tmp.z = m.z + GetCurr().z;
+        res.AddMonome(tmp);
+    }
+    return res;
 }
 
 void Polynome::AddMonome(Monome m)
@@ -104,8 +154,8 @@ void Polynome::AddMonome(Monome m)
                         sz--;
                         delete tmp;
                     }
-                    return;
                 }
+                return;
             }
         }
     }

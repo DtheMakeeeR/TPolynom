@@ -8,6 +8,8 @@ public:
 	Polynome(const Polynome& p) : TList<Monome>(p) {}
 	Polynome(Monome* p, int sz);
 
+	bool operator==(const Polynome& p) const;
+
 	Polynome operator+(Polynome& p);
 	Polynome operator+(double coef);
 	Polynome operator*(Polynome& p);

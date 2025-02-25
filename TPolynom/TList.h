@@ -5,12 +5,13 @@ struct Node {
 	T value;
 	Node* pNext;
 	Node(T v) : value(v), pNext(nullptr) {};
-	Node() {
-		value = new T();
-		pNext = nullptr;
-	}
+	Node();
 };
-
+template <typename T>
+Node<T>::Node() {
+	value = new T();
+	pNext = nullptr;
+}
 template <class T>
 class TList {
 protected:
@@ -23,8 +24,8 @@ public:
 	TList(const TList& l);
 
 	TList<T>& operator=(const TList<T>& l);
-	bool operator ==(const TList<T>& l);
-	bool operator !=(const TList<T>& l) { return !(*this == l); };
+	bool operator ==(const TList<T>& l) const ;
+	bool operator !=(const TList<T>& l) const { return !(*this == l); };
 	~TList();
 
 	iterator Begin() { return iterator(pFirst); };
@@ -33,7 +34,7 @@ public:
 	void Reset();
 	bool IsEnd() { return pCurr == nullptr; }
 	void GoNext();
-	T GetCurr() { return pCurr->value; }
+	T& GetCurr() { return pCurr->value; }
 	void SetCurr(T v) { pCurr->value = v; }
 	bool IsEmpty() { return sz == 0; };
 	void Clear();
@@ -82,7 +83,7 @@ TList<T>& TList<T>::operator=(const TList<T>& l)
 }
 
 template<class T>
-bool TList<T>::operator==(const TList<T>& l)
+bool TList<T>::operator==(const TList<T>& l) const
 {
 	if (this == &l) return true;
 	if (sz != l.sz) return false;
