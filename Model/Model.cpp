@@ -1,5 +1,7 @@
 #include "Model.h"
-
+#include "../TPolynom/Polynome.cpp"
+#include "../TPolynom/Monome.h"
+#include "../TPolynom/Monome.cpp"
 Model::Model()
 {
 	count = 0;
@@ -12,15 +14,15 @@ Model::Model()
 
 void Model::Run()
 {
-	Update();
-	char key;
-	cin >> key;
+	char key = 'a';
 	while (key != 'q') {
+		Update();
+		cin >> key;
 		Polynome res;
+		int number1, number2;
 		switch (key)
 		{
 		case '1':
-			int number1, number2;
 			cin >> number1 >> number2;
 			try {
 				res = polynomes[number1] + polynomes[number2];
@@ -31,7 +33,6 @@ void Model::Run()
 			}
 			break;
 		case '2':
-			int number1, number2;
 			cin >> number1 >> number2;
 			try {
 				res = polynomes[number1] - polynomes[number2];
@@ -42,7 +43,6 @@ void Model::Run()
 			}
 			break;
 		case '3':
-			int number1, number2;
 			cin >> number1 >> number2;
 			try {
 				res = polynomes[number1] * polynomes[number2];
@@ -71,12 +71,14 @@ void Model::Run()
 			Update("Try again");
 			break;
 		}
+		count++;
 	}
 	cout << "Its all over...";
 }
 
 void Model::Update(string message)
 {
+	system("cls");
 	cout << "Polynomes count: " << polynomes.size() << endl;
 	cout << "Operations are done: " << count << endl;
 	for (int i = 0; i < polynomes.size(); i++) {

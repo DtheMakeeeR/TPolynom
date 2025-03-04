@@ -130,7 +130,7 @@
     <ClInclude Include="Model.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainModel.cpp" />
     <ClCompile Include="Model.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
