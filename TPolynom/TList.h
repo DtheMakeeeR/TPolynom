@@ -47,7 +47,7 @@ public:
 };
 
 template<class T>
-TList<T>::TList(const TList& l)
+TList<T>::TList(const TList& l): pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0)
 {
 	Node<T>* tmp = l.pFirst;
 	while (tmp != nullptr) {

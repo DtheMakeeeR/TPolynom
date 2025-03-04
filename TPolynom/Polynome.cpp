@@ -1,7 +1,10 @@
 #include "Polynome.h"
 ostream& operator<<(ostream& out, Polynome& p)
 {
-    if (p.IsEmpty()) return out;
+    if (p.IsEmpty()) {
+        out << "0";
+        return out;
+    }
     p.Reset();
     out << p.GetCurr();
     p.GoNext();
@@ -87,10 +90,16 @@ Polynome Polynome::operator+(Polynome& p)
     }
     return res;
 }
+Polynome Polynome::operator-(Polynome& p)
+{
+    Polynome res, negative = p * (-1);
+    res = *this + negative;
+    return res;
+}
 //равны - двигаем оба, если удалился то двигаем в п
 // > InsCurr двигаем п
 // < двигаем res
-Polynome Polynome::operator+(double coef)
+Polynome Polynome::operator*(double coef)
 {
     Polynome res(*this);
     if (coef == 0.0) res.Clear();
