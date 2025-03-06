@@ -13,7 +13,7 @@ public:
 	Polynome operator+(Polynome& p);
 	Polynome operator-(Polynome& p);
 	Polynome operator*(double coef);
-	Polynome operator*(Polynome& p);
+	Polynome operator*(Polynome p);
 	Polynome operator*(Monome m);
 
 	void AddMonome(Monome m);

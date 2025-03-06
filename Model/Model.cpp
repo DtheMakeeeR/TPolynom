@@ -14,9 +14,9 @@ Model::Model()
 
 void Model::Run()
 {
+	Update();
 	char key = 'a';
 	while (key != 'q') {
-		Update();
 		cin >> key;
 		Polynome res;
 		int number1, number2;
@@ -27,6 +27,7 @@ void Model::Run()
 			try {
 				res = polynomes[number1] + polynomes[number2];
 				polynomes.push_back(res);
+				Update();
 			}
 			catch (...) {
 				Update("Try again");
@@ -37,6 +38,7 @@ void Model::Run()
 			try {
 				res = polynomes[number1] - polynomes[number2];
 				polynomes.push_back(res);
+				Update();
 			}
 			catch (...) {
 				Update("Try again");
@@ -47,6 +49,7 @@ void Model::Run()
 			try {
 				res = polynomes[number1] * polynomes[number2];
 				polynomes.push_back(res);
+				Update();
 			}
 			catch (...) {
 				Update("Try again");
@@ -58,14 +61,21 @@ void Model::Run()
 			try {
 				res = polynomes[number] * c;
 				polynomes.push_back(res);
+				Update();
 			}
 			catch (...) {
 				Update("Try again");
 			}
 			break;
 		case '5':
-			cin >> res;
-			polynomes.push_back(res);
+			try {
+				cin >> res;
+				polynomes.push_back(res);
+				Update();
+			}
+			catch (...) {
+				Update("Try again");
+			}
 			break;
 		default:
 			Update("Try again");
@@ -73,7 +83,8 @@ void Model::Run()
 		}
 		count++;
 	}
-	cout << "Its all over...";
+	Update("Its all over...");
+	cin >> key;
 }
 
 void Model::Update(string message)
@@ -89,9 +100,9 @@ void Model::Update(string message)
 	cout << "2: Polynomes dis" << endl;
 	cout << "3: Polynomes mult" << endl;
 	cout << "4: Polynomes multInt" << endl;
-	cout << "5: Polynomes input" << endl;
+	cout << "5: Polynomes input (coeff x y z until coeff == 0" << endl;
 	cout << "q: Quit" << endl;
 	if (message != "") {
-		cout << "\033[32m" << message << "\033[0m" << endl;
+		cout << "\033[31m" << message << "\033[0m" << endl;
 	}
 }

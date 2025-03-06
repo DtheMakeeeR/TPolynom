@@ -111,13 +111,17 @@ Polynome Polynome::operator*(double coef)
     return res;
 }
 
-Polynome Polynome::operator*(Polynome& p)
+Polynome Polynome::operator*(Polynome p)
 {
-    Polynome res;
+    Polynome res, multer(*this);
     if (p.sz == 0) return res;
     for (p.Reset(); !(p.IsEnd()); (p.GoNext())) {
-        //res = res + (*this * p.GetCurr()); не работает!
+//res = res + (*this * p.GetCurr()); не работает!
+
+//при приминении операции полинома к самому себе кур и прев меняются в умножении ->
+//  внутренний цикл ломает внешний 
         Polynome tmp = (*this * p.GetCurr());
+        //Polynome tmp = (multer * p.GetCurr());
         res = (res + tmp);
     }
     return res;
