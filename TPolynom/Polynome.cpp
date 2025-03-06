@@ -41,7 +41,16 @@ Polynome::Polynome(Monome* p, int sz)
 }
 
 bool Polynome::operator==(const Polynome& p) const {
-    return TList<Monome>::operator==(p);
+    if (this == &p) return true;
+    if (sz != p.sz) return false;
+    Node<Monome>* tmp1 = pFirst, * tmp2 = p.pFirst;
+    for (int i = 0; i < sz; i++) {
+        if ((tmp1->value != tmp2->value) || (tmp1->value.coeff != tmp2->value.coeff))
+            return false;
+        tmp1 = tmp1->pNext;
+        tmp2 = tmp2->pNext;
+    }
+    return true;
 }
 Polynome& Polynome::operator=(const Polynome& p) {
     if (this == &p) return *this;
@@ -104,8 +113,8 @@ Polynome Polynome::operator*(double coef)
     Polynome res(*this);
     if (coef == 0.0) res.Clear();
     else {
-        for (Reset(); !IsEnd(); GoNext()) {
-            pCurr->value.coeff *= coef;
+        for (res.Reset(); !res.IsEnd(); res.GoNext()) {
+            res.GetCurr().coeff *= coef;
         }
     }
     return res;
@@ -119,7 +128,7 @@ Polynome Polynome::operator*(Polynome p)
 //res = res + (*this * p.GetCurr()); не работает!
 
 //при приминении операции полинома к самому себе кур и прев меняются в умножении ->
-//  внутренний цикл ломает внешний 
+//  внутренний цикл ломает внешний (так было из-за передачи ссылки...)
         Polynome tmp = (*this * p.GetCurr());
         //Polynome tmp = (multer * p.GetCurr());
         res = (res + tmp);

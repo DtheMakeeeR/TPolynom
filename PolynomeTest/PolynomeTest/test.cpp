@@ -3,6 +3,15 @@
 #include "../../TPolynom/Polynome.cpp"
 #include "../../TPolynom/Monome.h"
 #include "../../TPolynom/Monome.cpp"
+TEST(TPolynome, PolynomeCorrectAssign) {
+	Monome m1[3] = { Monome(1, 2, 1, 1), Monome(-3, 1, 0, 0), Monome(4, 0, 2, 1) };
+	Monome m2[3] = { Monome(1, 2, 1, 1), Monome(-3, 1, 0, 0) };
+	Polynome p1(m1, 3), p2(m2, 2);
+	p1 = p2;
+	EXPECT_EQ(p1, p2);
+	p1 = p1 + p1;
+	EXPECT_NE(p1, p2);
+}
 TEST(TPolynome, AddMonome_back_del) {
 	Monome m1[3] = { Monome(1, 2, 1, 1), Monome(-3, 1, 0, 0), Monome(4, 0, 2, 1) };
 	Monome m2[3] = { Monome(1, 2, 1, 1), Monome(-3, 1, 0, 0) };

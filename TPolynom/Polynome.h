@@ -9,6 +9,7 @@ public:
 	Polynome(Monome* p, int sz);
 
 	bool operator==(const Polynome& p) const;
+	bool operator!=(const Polynome& p) const { return !(*this == p); };
 	Polynome& operator=(const Polynome& p);
 	Polynome operator+(Polynome& p);
 	Polynome operator-(Polynome& p);
