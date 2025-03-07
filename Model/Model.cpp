@@ -5,11 +5,15 @@
 Model::Model()
 {
 	count = 0;
-	Monome m1[4] = { Monome(2, 2, 2, 0), Monome(1, 1, 1, 1), Monome(2.5, 3, 0, 1), Monome(2)};
-	Monome m2[2] = { Monome(-3, 15, 3, 3), Monome(2) };
-	Polynome a(m1, 4), b(m2, 2);
+	//Monome m1[4] = { Monome(2, 2, 2, 0), Monome(1, 1, 1, 1), Monome(2.5, 3, 0, 1), Monome(2)};
+	//Monome m2[2] = { Monome(-3, 15, 3, 3), Monome(2) };
+	Monome m3[3] = { Monome(10, 7, 7, 7), Monome(9, 5, 5, 5), Monome(8, 3, 3, 3) };
+	Monome m4[3] = { Monome(-8, 3, 3, 3), Monome(-10, 2, 2, 2), Monome(-9, 0, 0, 0) };
+	Monome m5[1] = { Monome(1, 5, 5, 5) };
+	Polynome a(m3, 3), b(m4, 3), c(m5, 1);
 	polynomes.push_back(a);
 	polynomes.push_back(b);
+	polynomes.push_back(c);
 }
 
 void Model::Run()
@@ -24,47 +28,62 @@ void Model::Run()
 		{
 		case '1':
 			cin >> number1 >> number2;
-			try {
-				res = polynomes[number1] + polynomes[number2];
-				polynomes.push_back(res);
-				Update();
-			}
-			catch (...) {
-				Update("Try again");
+			if (number1 >= polynomes.size() || number2 >= polynomes.size()) Update("Try again");
+			else
+			{
+				try {
+					res = polynomes[number1] + polynomes[number2];
+					polynomes.push_back(res);
+					Update();
+				}
+				catch (...) {
+					Update("Try again");
+				}
 			}
 			break;
 		case '2':
 			cin >> number1 >> number2;
-			try {
-				res = polynomes[number1] - polynomes[number2];
-				polynomes.push_back(res);
-				Update();
-			}
-			catch (...) {
-				Update("Try again");
+			if (number1 >= polynomes.size() || number2 >= polynomes.size()) Update("Try again");
+			else
+			{
+				try {
+					res = polynomes[number1] - polynomes[number2];
+					polynomes.push_back(res);
+					Update();
+				}
+				catch (...) {
+					Update("Try again");
+				}
 			}
 			break;
 		case '3':
 			cin >> number1 >> number2;
-			try {
-				res = polynomes[number1] * polynomes[number2];
-				polynomes.push_back(res);
-				Update();
-			}
-			catch (...) {
-				Update("Try again");
+			if (number1 >= polynomes.size() || number2 >= polynomes.size()) Update("Try again");
+			else {
+				try {
+					res = polynomes[number1] * polynomes[number2];
+					polynomes.push_back(res);
+					Update();
+				}
+				catch (...) {
+					Update("Try again");
+				}
 			}
 			break;
 		case '4':
 			int number, c;
 			cin >> number >> c;
-			try {
-				res = polynomes[number] * c;
-				polynomes.push_back(res);
-				Update();
-			}
-			catch (...) {
-				Update("Try again");
+			if (number >= polynomes.size()) Update("Try again");
+			else
+			{
+				try {
+					res = polynomes[number] * c;
+					polynomes.push_back(res);
+					Update();
+				}
+				catch (...) {
+					Update("Try again");
+				}
 			}
 			break;
 		case '5':

@@ -10,10 +10,11 @@ bool Monome::operator<(const Monome& m)
 
 ostream& operator<<(ostream& out, const Monome& m)
 {
+    //"\033[31m" << message << "\033[0m
     out << m.coeff;
-    if (m.x != 0) cout << "*x^" << m.x;
-    if (m.y != 0) cout << "*y^" << m.y;
-    if (m.z != 0) cout << "*z^" << m.z;
+    if (m.x != 0) cout << "\033[32m" << "*x^" << m.x << "\033[0m";
+    if (m.y != 0) cout << "\033[33m" << "*y^" << m.y << "\033[0m";
+    if (m.z != 0) cout << "\033[34m" << "*z^" << m.z << "\033[0m";
     return out;
 }
 
